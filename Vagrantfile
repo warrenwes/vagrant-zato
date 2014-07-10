@@ -23,7 +23,12 @@ Vagrant::configure("2") do |config|
   #config.vm.synced_folder "www", "/var/www", :nfs => { 
   #  :mount_options   => ['dmode=777,fmode=777'] 
   #}
-
+  config.vm.network :forwarded_port, guest: 8183, host: 8183
+  config.vm.network :forwarded_port, guest: 11223, host: 3303
+  config.vm.network :private_network, ip: "192.168.33.10"
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "7024"]
+  end
   # Uncomment the following line to allow for symlinks
   # in the app folder. This will not work on Windows, and will
   # not work with Vagrant providers other than VirtualBox
@@ -32,7 +37,6 @@ Vagrant::configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 80, host: 8080
 
   # Set the Timezone to something useful
   config.vm.provision :shell, :inline => "echo \"America/New_York\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
