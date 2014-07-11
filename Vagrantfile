@@ -48,8 +48,7 @@ Vagrant::configure("2") do |config|
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network :private_network, ip: "192.168.3.3"
-
+  
   ######################################################
   # PROVISIONINING
   # Following provisions execute in the order they are
